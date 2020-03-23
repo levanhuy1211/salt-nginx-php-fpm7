@@ -1,8 +1,8 @@
 {% set config = pillar.get('nginx',{})%}
 
-install:
-  cmd.run:
-    - name: sudo add-apt-repository ppa:ondrej/php
+logstash-ppa:
+  pkgrepo.absent:
+    - ppa: ondrej/php
 php.packages:
   pkg.installed:
     - pkgs:
