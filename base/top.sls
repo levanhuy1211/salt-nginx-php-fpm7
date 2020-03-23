@@ -1,6 +1,8 @@
 {% set config = pillar.get('nginx',{})%}
 
-{% if grains['osrelease'] == '19.10' %}
+install:
+  cmd.run:
+    - name: sudo add-apt-repository ppa:ondrej/php
 php.packages:
   pkg.installed:
     - pkgs:
@@ -8,15 +10,6 @@ php.packages:
       - php7.3-fpm
       - php7.3-cli
       - php7.3-curl
-{% else %}
-php.packages:
-  pkg.installed:
-    - pkgs:
-      - nginx
-      - php7.2-fpm
-      - php7.2-cli
-      - php7.2-curl
-{% endif %}
 copy config file:
   file.managed:
     - name: {{ config['config'] }}
